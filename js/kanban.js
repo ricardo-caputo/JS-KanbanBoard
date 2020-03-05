@@ -34,19 +34,21 @@ const create_item = () => {
     error.innerHTML = "";
     if(input.value != "") {
       order++;
-      item.innerHTML = input;
+      item.innerHTML = input.value;
       adding = false;
     } else {
       error.innerHTML = message;
     }
   });
   item.appendChild(save_btn);
+  return item;
 };
 
 document.querySelectorAll('.drop').forEach(element => {
   element.addEventListener("drop", (event) => {
     let id = event.dataTransfer.getData('text');
-    event.target.appendChild(getElementById('id'));
+    event.target.appendChild(document.getElementById('id'));
+    event.preventDefault();
   });
   element.addEventListener("dragover", (event) => {
     event.preventDefault();
