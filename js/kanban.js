@@ -16,7 +16,39 @@ add_btn.addEventListener('click', () => {
 });
 
 const create_item = () => {
+  let item = document.createElement("DIV");
+  item.classList.add("item");
+  item.setAttribute("id", "item-" + order);
+  item.setAttribute("draggable", true);
+  item.addEventListener("dragstart", (event) => {
+    event.dataTransfer.setData("text", event.target.id);
+  });
+  item.addEventListener("dragend", (event) => {
+    event.dataTransfer.clearData();
+  });
+  let input = document.createElement("INPUT");
+  item.appendChild(input);
+  let save_btn = document.createElement("BUTTON");
+  save_btn.innerHTML = "Save";
+  save_btn.addEventListener("click", () => {
+    error.innerHTML = "";
+    if(input.value != "") {
+      order++;
+      item.innerHTML = input;
+      adding = false;
+    } else {
+      error.innerHTML = message;
+    }
+  });
+  item.appendChild(save_btn);
 };
 
 document.querySelectorAll('.drop').forEach(element => {
+  element.addEventListener("drop", (event) => {
+    let id = event.dataTransfer.getData('text');
+    event.target.appendChild(getElementById('id'));
+  });
+  element.addEventListener("dragover", (event) => {
+    event.preventDefault();
+  })
 });
